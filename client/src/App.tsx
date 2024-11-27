@@ -5,6 +5,7 @@ import "./App.css";
 import CreateUser from "./Components/CreateUser";
 import ListOfUsers from "./Components/ListOfUsers";
 import UpdatePassword from "./Components/UpdatePassword";
+import Note from "./Components/Note";
 
 function App() {
   const client = new ApolloClient({
@@ -15,9 +16,12 @@ function App() {
   return (
     <>
       <ApolloProvider client={client}>
-        <CreateUser />
-        <ListOfUsers />
-        <UpdatePassword />
+        <div className="container max-w-[1000px] mx-auto flex flex-col gap-[20px] p-4">
+          <Note />
+          <CreateUser />
+          <UpdatePassword />
+          <ListOfUsers />
+        </div>
       </ApolloProvider>
     </>
   );
