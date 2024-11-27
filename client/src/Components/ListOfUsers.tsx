@@ -1,15 +1,12 @@
+import React from "react";
 import { GET_ALL_USERS } from "../Graphql/Queries";
 import { DELETE_USER } from "../Graphql/Mutation";
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 
-const ListOfUsers = () => {
-  const { data, loading } = useQuery(GET_ALL_USERS);
+function ListOfUsers() {
+  const { data } = useQuery(GET_ALL_USERS);
 
   const [deleteUser, { error }] = useMutation(DELETE_USER);
-
-  // const executeDelete = (id: number): void => {
-  //   deleteUser(id);
-  // };
 
   return (
     <div>
@@ -17,8 +14,7 @@ const ListOfUsers = () => {
         data.getAllUsers.map((user: any) => {
           return (
             <div>
-              {" "}
-              {user.name} / {user.username}{" "}
+              {user.name} / {user.username}
               <button
                 onClick={() => {
                   deleteUser({ variables: { id: user.id } });
@@ -31,6 +27,6 @@ const ListOfUsers = () => {
         })}
     </div>
   );
-};
+}
 
 export default ListOfUsers;

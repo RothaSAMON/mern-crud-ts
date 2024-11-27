@@ -1,6 +1,6 @@
 import { GraphQLID, GraphQLString } from "graphql";
-import { MessageType } from "../TypeDefs/Messages";
 import { UserType } from "../TypeDefs/User";
+import { MessageType } from "../TypeDefs/Messages";
 import { Users } from "../../Entities/Users";
 
 export const CREATE_USER = {
@@ -10,30 +10,10 @@ export const CREATE_USER = {
     username: { type: GraphQLString },
     password: { type: GraphQLString },
   },
-
   async resolve(parent: any, args: any) {
     const { name, username, password } = args;
-
-    await Users.insert({
-      name,
-      username,
-      password,
-    });
+    await Users.insert({ name, username, password });
     return args;
-  },
-};
-
-export const DELETE_USER = {
-  type: MessageType,
-  args: {
-    id: { type: GraphQLID },
-  },
-
-  async resolve(parent: any, args: any) {
-    const { id } = args;
-    await Users.delete(id);
-
-    return { successful: true, message: "Delete Successful!" };
   },
 };
 
@@ -44,23 +24,34 @@ export const UPDATE_PASSWORD = {
     oldPassword: { type: GraphQLString },
     newPassword: { type: GraphQLString },
   },
-
   async resolve(parent: any, args: any) {
     const { username, oldPassword, newPassword } = args;
     const user = await Users.findOne({ where: { username: username } });
 
     if (!user) {
-      throw new Error("Username doesn't exit!");
+      throw new Error("USERNAME DOESNT EXIST");
     }
-
     const userPassword = user?.password;
 
     if (oldPassword === userPassword) {
       await Users.update({ username: username }, { password: newPassword });
 
-      return { successful: true, message: "Password update Successful!" };
+      return { successful: true, message: "PASSWORD UPDATED" };
     } else {
-      throw new Error("Passwords do not match!");
+      throw new Error("PASSWORDS DO NOT MATCH!");
     }
+  },
+};
+
+export const DELETE_USER = {
+  type: MessageType,
+  args: {
+    id: { type: GraphQLID },
+  },
+  async resolve(parent: any, args: any) {
+    const id = args.id;
+    await Users.delete(id);
+
+    return { successful: true, message: "DELETE WORKED" };
   },
 };

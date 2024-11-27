@@ -1,8 +1,7 @@
-import { useMutation } from "@apollo/client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { CREATE_USER } from "../Graphql/Mutation";
-
-const CreateUser = () => {
+import { useMutation } from "@apollo/client";
+function CreateUser() {
   const [name, setName] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -10,7 +9,7 @@ const CreateUser = () => {
   const [createUser, { error }] = useMutation(CREATE_USER);
 
   return (
-    <div>
+    <div className="createUser">
       <input
         type="text"
         placeholder="name"
@@ -47,6 +46,6 @@ const CreateUser = () => {
       </button>
     </div>
   );
-};
+}
 
 export default CreateUser;

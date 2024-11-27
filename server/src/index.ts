@@ -1,7 +1,7 @@
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
-import cors from "cors";
 import { schema } from "./Schema";
+import cors from "cors";
 import { createConnection } from "typeorm";
 import { Users } from "./Entities/Users";
 
@@ -28,7 +28,7 @@ const main = async () => {
   );
 
   app.listen(3001, () => {
-    console.log("Server running on port 3001 🚀");
+    console.log("SERVER RUNNING ON PORT 3001");
   });
 };
 
