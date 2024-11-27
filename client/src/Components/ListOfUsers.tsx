@@ -127,7 +127,7 @@ function ListOfUsers() {
       </h2>
 
       {data && data.getAllUsers.length > 0 ? (
-        <div>
+        <div className="overflow-x-auto">
           <table className="min-w-full table-auto border-collapse">
             <thead>
               <tr className="bg-gray-200">
